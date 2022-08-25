@@ -21,7 +21,7 @@ y_plot(k) = X_0(1);
 h = 0.1;
 
 #PI
-k_p = 0.5; #5 unstable
+k_p = 0.1; #5 unstable
 k_i = a*k_p;
 
 i_0 = 0;
@@ -43,18 +43,18 @@ while (t <= t_max)
 
   p_l = k_p*e_o;
   p_nl = k_p*(e_o + alpha*(e_o^5));
-  i = i_0 + k_i*e_o;
-  if (i > i_max)
-    i = i_max;
-  endif
+  i = i_0 + (k_i/h)*e_o;
+  #if (i > i_max)
+  #  i = i_max;
+  #endif
   # linear
   u = p_l + i; #r
   # nonlinear
   #u = p_nl + i; #b
 
-  if (u > u_max)
-    u = u_max;
-  endif
+  #if (u > u_max)
+  #  u = u_max;
+  #endif
   X_0 = X_f;
   i_0 = i;
   t = t + h;
