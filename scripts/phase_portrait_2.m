@@ -48,12 +48,15 @@ f_11 = @(t, X) [mu*X(1) + X(2) - X(1)^3; -X(1)];
 #den = (X(1)^2 + X(2)^2) * (1 + (X(1)^2 + X(2)^2)^2);
 f_12 = @(t, X) [((X(1)^2*(X(2)-X(1)) + X(2)^5)) / ((X(1)^2 + X(2)^2) * (1 + (X(1)^2 + X(2)^2)^2)); (X(2)^2*(X(2) -2*X(1))) / ((X(1)^2 + X(2)^2) * (1 + (X(1)^2 + X(2)^2)^2))];
 
+# ddot(x) + dot(x)^3 - x^2 = u
+#f_13 = @(t, X) [X(2) ; -X(2)^3 + X(1)^2 + (X(2)^3-X(1)^2-X(1)-X(2))];
+f_13 = @(t, X) [X(2) ; -X(2)^3 + X(1)^2 + (X(2)^3-X(1)^2-X(1)-2*X(2))];
 
 #Vamos definir o intervalo em x_1 e x_2 de interesse
-x_1_min = -5;
-x_1_max = 5;
-x_2_min = -5;
-x_2_max = 5;
+x_1_min = -50;
+x_1_max = 50;
+x_2_min = -50;
+x_2_max = 50;
 
 #cria eixos
 x_1 = linspace(x_1_min, x_1_max, 50);
@@ -67,7 +70,7 @@ v = zeros(size(x));
 
 t=0;
 for i = 1:numel(x)
-    Xprime = f_12(t,[x(i); x_dot(i)]); % MUDAR SISTEMA AQUI
+    Xprime = f_13(t,[x(i); x_dot(i)]); % MUDAR SISTEMA AQUI
     u(i) = Xprime(1);
     v(i) = Xprime(2);
 end
@@ -88,7 +91,7 @@ while true
     [x0_x, x0_y] = ginput(1);
     x0 = [x0_x, x0_y];
     tspan=[0 100];
-    [ts,xs] = ode45(f_12,tspan, x0); % MUDAR SISTEMA AQUI
+    [ts,xs] = ode45(f_13,tspan, x0); % MUDAR SISTEMA AQUI
     plot(0,0, 'ro', 'marker', '*');
     plot(xs(:,1),xs(:,2), 'linewidth', 3);
     plot(xs(1,1), xs(1,2), 'ro', 'marker', 'd') % starting point
