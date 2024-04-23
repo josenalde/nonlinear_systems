@@ -8,7 +8,7 @@ x=[-1:.04:1];
 y=x;
 [X,Y] = meshgrid(x,y);
 V2 = X.^2 ./ (1 + X.^2) + Y.^2;
-surfc(X,Y,V2);
+#urfc(X,Y,V2);
 
 
 x=[-1:.04:1];
@@ -28,4 +28,10 @@ x=[-2:.04:2];
 y=x;
 [X,Y] = meshgrid(x,y);
 V4 = (((X + Y).^2) ./ (1 + X.^2 + Y.^2)) + (X - Y).^2;
-surfc(X,Y,V4);
+%surfc(X,Y,V4);
+
+x=[-1.1:.04:1.1];
+y=x;
+[X,Y] = meshgrid(x,y);
+V5 = (X+Y.^2).^2 + Y.^2;
+surfc(X,Y,V5);
