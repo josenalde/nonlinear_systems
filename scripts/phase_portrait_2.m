@@ -57,25 +57,32 @@ f_14 = @(t, X) [-X(1)^2 + 2*X(1)*X(2) ; -2*X(1)*X(2) + 0.5*X(2) - X(2)^2];
 
 f_15 = @(t,X) [-X(1) - X(2)^2; -X(2)];
 
+%VGM
+f_16 = @(t,X) [-2*X(1); - 2*X(2) - 2*X(2)*X(2)^2];
+
+%exercises_I
+f_17 = @(t,X) [-3*X(1) + X(2); - X(1) - X(2) - X(2)^3];
+
+
 #Vamos definir o intervalo em x_1 e x_2 de interesse
-x_1_min = -2.0;
-x_1_max = 2.0;
-x_2_min = -2.0;
-x_2_max = 2.0;
+x_1_min = -0.5;
+x_1_max = 0.5;
+x_2_min = -1.4;
+x_2_max = 1.4;
 
 #cria eixos
-x_1 = linspace(x_1_min, x_1_max, 50);
-x_2 = linspace(x_2_min, x_2_max, 50);
+x_1 = linspace(x_1_min, x_1_max, 20);
+x_2 = linspace(x_2_min, x_2_max, 20);
 
 #cria grid 20x20
-[x,x_dot] = meshgrid(x_1,x_2);
+[x, x_dot] = meshgrid(x_1,x_2);
 
 u = zeros(size(x)); #guardará o valor de dot_x1 em cada ponto e v guardará o valor de dot_x2 em cada ponto
 v = zeros(size(x));
 
 t=0;
 for i = 1:numel(x)
-    Xprime = f_15(t,[x(i); x_dot(i)]); % MUDAR SISTEMA AQUI
+    Xprime = f_17(t,[x(i); x_dot(i)]); % MUDAR SISTEMA AQUI
     u(i) = Xprime(1);
     v(i) = Xprime(2);
 end
@@ -96,7 +103,7 @@ while true
     [x0_x, x0_y] = ginput(1);
     x0 = [x0_x, x0_y];
     tspan=[0 100];
-    [ts,xs] = ode45(f_15,tspan, x0); % MUDAR SISTEMA AQUI
+    [ts,xs] = ode45(f_17,tspan, x0); % MUDAR SISTEMA AQUI
     plot(0,0, 'ro', 'marker', '*');
     plot(xs(:,1),xs(:,2), 'linewidth', 3);
     plot(xs(1,1), xs(1,2), 'ro', 'marker', 'd') % starting point
